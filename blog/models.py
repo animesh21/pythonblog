@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -23,4 +25,17 @@ class Blog(models.Model):
 
     @classmethod
     def get_top_10(cls):
-        pass
+        blogs = Blog.objects.all().order_by('-timestamp')
+
+        if(len(list(blogs))<10):
+            return list(blogs)
+        else:
+            return list(blogs[0:11])
+
+    @classmethod
+    # def was_published_recently(cls,self):
+        # return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    @classmethod
+    def was_publish_recently(cls,self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.timestamp <= now
