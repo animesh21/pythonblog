@@ -1,6 +1,7 @@
 from django import forms
 from .models import BlogUser
 
+
 class SignUpForm(forms.ModelForm):
     class Meta:
         password = forms.CharField(widget=forms.PasswordInput)

@@ -4,10 +4,7 @@ from .forms import SignUpForm
 from django.shortcuts import render
 
 
-q
-def sigh_up_view(request):
-
-
+def sign_up_view(request):
     form = SignUpForm(request.POST or None)
     context = {
         "title":"Sign up form",
@@ -16,6 +13,7 @@ def sigh_up_view(request):
 
     if request.method == "POST":
         form = SignUpForm(request.POST or None)
+        form.save()
 
 
     return render(request,"blog/signup.html", context=context)

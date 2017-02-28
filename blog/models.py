@@ -17,15 +17,15 @@ class Blog(models.Model):
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         ordering = ('-timestamp', )
 
+    def __str__(self):
+        return self.title
+
     @classmethod
     def get_top_10(cls):
-        blogs = Blog.objects.all().order_by('-timestamp')
+        blogs = Blog.objects.all().order_by('-timestamp')  # not needed as we've already defined this in Meta class
 
         if(len(list(blogs))<10):
             return list(blogs)
@@ -33,9 +33,6 @@ class Blog(models.Model):
             return list(blogs[0:11])
 
     @classmethod
-    # def was_published_recently(cls,self):
-        # return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-    @classmethod
-    def was_publish_recently(cls,self):
+    def was_publish_recently(cls, self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.timestamp <= now
