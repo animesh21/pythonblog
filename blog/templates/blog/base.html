@@ -1,8 +1,10 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'blog/css/mystyle.css' %}">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,18 +16,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
-        {%  if title %}
+        {% if title %}
             {{ title }}
         {% else %}
-            Sign Up for PyBlog
+            PyBlog
         {% endif %}
     </title>
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="jumbotron text-center">The Weekly Python Blog</h1>
+        <h1 class="jumbotron text-center" id="heading">The Weekly Python Blog</h1>
         {% block content %}
         {% endblock %}
+        <h2>
+        {% block messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        {% endblock %}
+        </h2>
     </div>
 </body>
 </html>

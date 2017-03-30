@@ -1,8 +1,22 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <ul>
-        {% for blog in blogs %}
-            <li>{{ blog.title }}</li>
-        {% endfor %}
-    </ul>
+    <h3>Welcome user - {{ request.user }} </h3>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="create blog">
+        </form>
+    </div>
+
+
+    <div class="container">
+    {% for blog in blogs %}
+        <div class="jumbotron">
+            <h3>Owner of the blog : {{ blog.user }}</h3>
+            <h2>title : {{ blog.title }}</h2>
+            <p>Content : {{ blog.text }}</p>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
